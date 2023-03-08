@@ -1,6 +1,5 @@
 package com.example.poetic.ui.theme
 
-import android.graphics.Color
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
@@ -10,15 +9,13 @@ import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
 
 private val DarkColorPalette = darkColors(
-    background = darkBackground,
-    surface = White,
+    surface = darkBackground,
     primary = darkThemeColor,
     onSurface = White
 )
 
 private val LightColorPalette = lightColors(
-    background = lightBackground,
-    surface = Black,
+    surface = lightBackground,
     primary = lightThemeColor,
     onSurface = Black
 
