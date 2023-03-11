@@ -4,11 +4,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.SnackbarDefaults.backgroundColor
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,7 +18,6 @@ import androidx.compose.ui.unit.sp
 import com.example.poetic.model.Datasource
 import com.example.poetic.model.Poem
 import com.example.poetic.ui.theme.Garamond
-import com.example.poetic.ui.theme.darkThemeColor
 
 @Composable
 fun Home() {
@@ -54,8 +51,7 @@ fun Home() {
                     .padding(horizontal = 16.dp))
 
             Spacer(modifier = Modifier.padding(2.dp))
-
-            val list = listOf(0, 1, 2, 3, 4, 5)
+            
             LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 item {
                     (0..5).forEach { index ->
@@ -130,33 +126,44 @@ fun PoemListCard(poem: Poem) {
         elevation = 0.dp
 
     ) {
-        Column(modifier = Modifier
+        Row(modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)) {
+            .padding(8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically) {
+            AuthorTitleColumn(poem = poem)
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween) {
-                Text(
-                    text = poem.author,
-                    fontWeight = FontWeight.SemiBold
-                )
-
-                Text(
-                    text = "2023/05/23",
-                    color = Color.LightGray,
-                    fontSize = 12.sp
-                )
-
-            }
-            Text(
-                text = poem.title,
-                fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colors.primary
-            )
+            Icon(imageVector = Icons.Default.ChevronRight, contentDescription = "Right Chevron")
         }
     }
 
+}
+
+@Composable
+fun AuthorTitleColumn(poem: Poem) {
+    Column {
+        Row(
+            modifier = Modifier.fillMaxWidth(0.9f),
+            horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically) {
+            Text(
+                text = poem.author,
+                fontWeight = FontWeight.SemiBold
+            )
+
+            Text(
+                text = "2023/05/23",
+                color = Color.LightGray,
+                fontSize = 12.sp
+            )
+
+        }
+        Text(
+            text = poem.title,
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colors.primary
+        )
+    }
 }
 
 @Preview
