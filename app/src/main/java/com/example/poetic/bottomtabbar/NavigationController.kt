@@ -12,7 +12,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.poetic.Favorites
 import com.example.poetic.Search
 import com.example.poetic.Settings
-import com.example.poetic.ui.theme.darkBackground
 import com.example.poetic.views.Home
 
 
@@ -68,7 +67,7 @@ fun Navigation() {
                           },
                       onClick = {
                           if (currentRoute != it.route) {
-                              navController.graph?.startDestinationRoute?.let {
+                              navController.graph.startDestinationRoute?.let {
                                   navController.popBackStack(it, true)
                               }
 
