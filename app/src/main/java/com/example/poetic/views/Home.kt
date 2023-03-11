@@ -1,8 +1,11 @@
-package com.example.poetic.ui.theme.views
+package com.example.poetic.views
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -14,6 +17,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.poetic.model.Datasource
+import com.example.poetic.model.Poem
 import com.example.poetic.ui.theme.Garamond
 import com.example.poetic.ui.theme.darkThemeColor
 
@@ -35,7 +40,7 @@ fun Home() {
                 fontWeight = FontWeight.Normal,
                 fontSize = 16.sp,
                 lineHeight = 16.sp,
-                color = darkThemeColor,
+                color = MaterialTheme.colors.primary,
                 modifier = Modifier
                     .padding(horizontal = 16.dp))
 
@@ -48,16 +53,33 @@ fun Home() {
                 modifier = Modifier
                     .padding(horizontal = 16.dp))
 
-            Spacer(modifier = Modifier.padding(4.dp))
+            Spacer(modifier = Modifier.padding(2.dp))
 
             val list = listOf(0, 1, 2, 3, 4, 5)
             LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 item {
                     (0..5).forEach { index ->
-                        HomeCard()
+                        HomeCard(poem = Datasource().mockPoem)
                     }
                 }
 
+            }
+
+            Text(text = "Recent",
+                fontWeight = FontWeight.Bold,
+                fontSize = 24.sp,
+                lineHeight = 28.sp,
+                modifier = Modifier
+                    .padding(horizontal = 16.dp))
+
+            Spacer(modifier = Modifier.padding(2.dp))
+
+            LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                item {
+                    (0..14).forEach { index ->
+                        PoemListCard(poem = Datasource().mockPoem)
+                    }
+                }
             }
 
         }
@@ -65,32 +87,75 @@ fun Home() {
 }
 
 @Composable
-fun HomeCard() {
+fun HomeCard(poem: Poem) {
     Card(modifier = Modifier
         .padding(8.dp)
-        .width(260.dp),
-        backgroundColor = Color.Black
+        .width(260.dp)
+        .height(176.dp)
+        .clickable { },
+        backgroundColor = MaterialTheme.colors.background,
+        elevation = 0.dp
     ) {
         Column(
             modifier = Modifier.padding(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Text(text = "William Shakespeare",
+            Text(text = poem.author,
             fontWeight = FontWeight.SemiBold
             )
 
-            Text(text = "Where be thee?")
+            Text(text = poem.lines[0])
 
             Text(text = "...",
             fontWeight = FontWeight.Bold)
 
+            Spacer(modifier = Modifier.height(4.dp))
+
             Text(
-                text = "Sonnet 1",
+                text = poem.title,
                 fontWeight = FontWeight.SemiBold,
-                color = darkThemeColor)
+                color = MaterialTheme.colors.primary)
         }
 
+    }
 }
+
+@Composable
+fun PoemListCard(poem: Poem) {
+    Card(
+        modifier = Modifier
+            .padding(4.dp)
+            .clickable { },
+        backgroundColor = MaterialTheme.colors.background,
+        elevation = 0.dp
+
+    ) {
+        Column(modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)) {
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween) {
+                Text(
+                    text = poem.author,
+                    fontWeight = FontWeight.SemiBold
+                )
+
+                Text(
+                    text = "2023/05/23",
+                    color = Color.LightGray,
+                    fontSize = 12.sp
+                )
+
+            }
+            Text(
+                text = poem.title,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colors.primary
+            )
+        }
+    }
 
 }
 

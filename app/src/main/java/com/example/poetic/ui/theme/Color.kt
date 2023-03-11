@@ -4,7 +4,7 @@ import androidx.compose.ui.graphics.Color
 
 val lightThemeColor = Color(0xFF645CAA)
 val lightHighlightThemeColor = Color(0xFF645CAA)
-val lightBackground = Color(0xFFBBBBBB)
+val lightBackground = Color(0xFFF7F7F7)
 
 val darkBackground = Color(0xFF111111)
 val darkThemeColor = Color(0xFFDAAFFC)
