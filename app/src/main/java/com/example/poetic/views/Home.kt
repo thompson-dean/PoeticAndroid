@@ -51,7 +51,7 @@ fun Home() {
                     .padding(horizontal = 16.dp))
 
             Spacer(modifier = Modifier.padding(2.dp))
-            
+
             LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 item {
                     (0..5).forEach { index ->
@@ -133,7 +133,11 @@ fun PoemListCard(poem: Poem) {
         verticalAlignment = Alignment.CenterVertically) {
             AuthorTitleColumn(poem = poem)
 
-            Icon(imageVector = Icons.Default.ChevronRight, contentDescription = "Right Chevron")
+            Icon(
+                imageVector = Icons.Default.ChevronRight,
+                contentDescription = "Right Chevron",
+                tint = MaterialTheme.colors.onSurface
+                )
         }
     }
 
