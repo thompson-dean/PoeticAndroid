@@ -1,5 +1,6 @@
 package com.example.poetic.views
 
+import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,12 +16,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.poetic.model.Datasource
 import com.example.poetic.model.Poem
+import com.example.poetic.navigation.DetailNavItem
+import com.example.poetic.navigation.NavigationItem
 import com.example.poetic.ui.theme.Garamond
 
 @Composable
-fun Home() {
+fun Home(navController: NavController) {
     Surface(modifier = Modifier
         .fillMaxSize()) {
         Column(horizontalAlignment = Alignment.Start) {
@@ -55,7 +59,9 @@ fun Home() {
             LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 item {
                     (0..5).forEach { index ->
-                        HomeCard(poem = Datasource().mockPoem)
+                        HomeCard(poem = Datasource().mockPoem, completion = {
+                            navController.navigate(route = DetailNavItem.Detail.route)
+                        })
                     }
                 }
 
@@ -73,7 +79,9 @@ fun Home() {
             LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 item {
                     (0..14).forEach { index ->
-                        PoemListCard(poem = Datasource().mockPoem)
+                        PoemListCard(poem = Datasource().mockPoem, completion = {
+                            navController.navigate(route = DetailNavItem.Detail.route)
+                        })
                     }
                 }
             }
@@ -83,12 +91,12 @@ fun Home() {
 }
 
 @Composable
-fun HomeCard(poem: Poem) {
+fun HomeCard(poem: Poem, completion: () -> Unit) {
     Card(modifier = Modifier
         .padding(8.dp)
         .width(260.dp)
         .height(176.dp)
-        .clickable { },
+        .clickable { completion() },
         backgroundColor = MaterialTheme.colors.background,
         elevation = 0.dp
     ) {
@@ -117,20 +125,20 @@ fun HomeCard(poem: Poem) {
 }
 
 @Composable
-fun PoemListCard(poem: Poem) {
+fun PoemListCard(poem: Poem, completion: () -> Unit) {
     Card(
         modifier = Modifier
             .padding(4.dp)
-            .clickable { },
+            .clickable { completion() },
         backgroundColor = MaterialTheme.colors.background,
         elevation = 0.dp
-
     ) {
         Row(modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically) {
+
             AuthorTitleColumn(poem = poem)
 
             Icon(
@@ -140,12 +148,11 @@ fun PoemListCard(poem: Poem) {
                 )
         }
     }
-
 }
 
 @Composable
 fun AuthorTitleColumn(poem: Poem) {
-    Column {
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Row(
             modifier = Modifier.fillMaxWidth(0.9f),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -160,18 +167,18 @@ fun AuthorTitleColumn(poem: Poem) {
                 color = Color.LightGray,
                 fontSize = 12.sp
             )
-
         }
+
         Text(
+            modifier = Modifier.fillMaxWidth(0.9f),
             text = poem.title,
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colors.primary
         )
     }
 }
-
-@Preview
+@Preview(name = "Dark Mode", uiMode = Configuration.UI_MODE_NIGHT_UNDEFINED, showBackground = true)
 @Composable
 fun Preview() {
-    Home()
+//    Home()
 }

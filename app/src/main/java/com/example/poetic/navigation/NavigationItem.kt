@@ -1,10 +1,7 @@
-package com.example.poetic.bottomtabbar
+package com.example.poetic.navigation
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.graphics.vector.ImageVector
 
 sealed class NavigationItem(
@@ -34,5 +31,13 @@ sealed class NavigationItem(
         route = "settings",
         label = "Settings",
         icon = Icons.Default.Settings
+    )
+}
+
+sealed class DetailNavItem(
+    val route: String
+    ) {
+    object Detail: DetailNavItem(
+        route = "detail"
     )
 }
