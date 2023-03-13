@@ -1,8 +1,10 @@
 package com.example.poetic.navigation
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -19,12 +21,12 @@ fun Navigation() {
         NavigationItem.Settings
     )
 
-    
+
 
     Scaffold(bottomBar = {
         BottomNavigation(backgroundColor = MaterialTheme.colors.surface, elevation = 0.dp) {
             val navBackStackEntry by navController.currentBackStackEntryAsState()
-            val currentRoute =navBackStackEntry?.destination?.route
+            val currentRoute = navBackStackEntry?.destination?.route
 
             items.forEach {
                 BottomNavigationItem(selected = currentRoute == it.route,
@@ -56,7 +58,8 @@ fun Navigation() {
             }
         }
     }) {
-        NavigationController(navController = navController)
-        val errorShutUp = it
+        NavigationController(
+            navController = navController,
+            modifier = Modifier.padding(it))
     }
 }

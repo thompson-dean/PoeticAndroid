@@ -1,6 +1,7 @@
 package com.example.poetic.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -12,7 +13,7 @@ import com.example.poetic.views.Home
 
 
 @Composable
-fun NavigationController(navController: NavHostController) {
+fun NavigationController(navController: NavHostController, modifier: Modifier = Modifier) {
     NavHost(navController = navController, startDestination = NavigationItem.Home.route) {
         composable(NavigationItem.Home.route) {
             Home(navController = navController)
