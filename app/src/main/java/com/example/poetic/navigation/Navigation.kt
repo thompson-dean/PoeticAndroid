@@ -9,9 +9,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.poetic.model.Poem
 
 @Composable
-fun Navigation() {
+fun Navigation(randomPoems: List<Poem>) {
     val navController = rememberNavController()
 
     val items = listOf(
@@ -60,6 +61,7 @@ fun Navigation() {
     }) {
         NavigationController(
             navController = navController,
+            randomPoems = randomPoems,
             modifier = Modifier.padding(it))
     }
 }

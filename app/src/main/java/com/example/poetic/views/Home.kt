@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronRight
@@ -16,15 +17,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.poetic.model.Datasource
 import com.example.poetic.model.Poem
 import com.example.poetic.navigation.DetailNavItem
 import com.example.poetic.navigation.NavigationItem
 import com.example.poetic.ui.theme.Garamond
+import com.example.poetic.viewmodel.PoemViewModel
 
 @Composable
-fun Home(navController: NavController) {
+fun Home(navController: NavController, randomPoems: List<Poem>) {
     Surface(modifier = Modifier
         .fillMaxSize()) {
         Column(horizontalAlignment = Alignment.Start) {
@@ -57,14 +60,13 @@ fun Home(navController: NavController) {
             Spacer(modifier = Modifier.padding(2.dp))
 
             LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                item {
-                    (0..5).forEach { index ->
-                        HomeCard(poem = Datasource().mockPoem, completion = {
+                items(randomPoems) {poem ->
+                        HomeCard(
+                            poem = poem,
+                            completion = {
                             navController.navigate(route = DetailNavItem.Detail.route)
                         })
-                    }
                 }
-
             }
 
             Text(text = "Recent",
