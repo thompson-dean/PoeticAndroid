@@ -12,7 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.poetic.model.Poem
 
 @Composable
-fun Navigation(randomPoems: List<Poem>) {
+fun Navigation() {
     val navController = rememberNavController()
 
     val items = listOf(
@@ -61,7 +61,6 @@ fun Navigation(randomPoems: List<Poem>) {
     }) {
         NavigationController(
             navController = navController,
-            randomPoems = randomPoems,
             modifier = Modifier.padding(it))
     }
 }

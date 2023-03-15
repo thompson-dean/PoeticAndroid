@@ -1,10 +1,12 @@
 package com.example.poetic.model
 
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Poem(
     val title: String,
     val author: String,
-    val lines: List<String>,
+    val lines: Array<String>,
     val linecount: String
 )
 
@@ -12,7 +14,7 @@ class Datasource {
     val mockPoem = Poem(
         title = "Sonnet 1: From fairest creatures we desire increase",
     author = "William Shakespeare",
-    lines = listOf(
+    lines = arrayOf(
     "From fairest creatures we desire increase, ",
     "That thereby beauty's rose might never die,",
     "But as the riper should by time decease, ",

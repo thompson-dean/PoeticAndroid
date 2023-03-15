@@ -16,14 +16,11 @@ import com.example.poetic.ui.theme.PoeticTheme
 import com.example.poetic.viewmodel.PoemViewModel
 
 class MainActivity : ComponentActivity() {
-
-    val poemViewModel by viewModels<PoemViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             PoeticTheme {
-               Navigation(poemViewModel.randomPoems)
-                poemViewModel.getRandomPoems()
+               Navigation()
             }
         }
     }

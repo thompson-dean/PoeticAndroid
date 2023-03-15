@@ -10,6 +10,10 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,17 +21,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.poetic.model.Datasource
 import com.example.poetic.model.Poem
 import com.example.poetic.navigation.DetailNavItem
-import com.example.poetic.navigation.NavigationItem
 import com.example.poetic.ui.theme.Garamond
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.poetic.viewmodel.HomeUiState
 import com.example.poetic.viewmodel.PoemViewModel
 
 @Composable
-fun Home(navController: NavController, randomPoems: List<Poem>) {
+fun Home(navController: NavController, viewModel: PoemViewModel = viewModel()) {
+
+    val homeUiState by viewModel.uiState.collectAsState()
+
     Surface(modifier = Modifier
         .fillMaxSize()) {
         Column(horizontalAlignment = Alignment.Start) {
@@ -60,11 +67,12 @@ fun Home(navController: NavController, randomPoems: List<Poem>) {
             Spacer(modifier = Modifier.padding(2.dp))
 
             LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                items(randomPoems) {poem ->
+                items(homeUiState.randomPoems) {poem ->
                         HomeCard(
                             poem = poem,
                             completion = {
-                            navController.navigate(route = DetailNavItem.Detail.route)
+                            navController.navigate(
+                                route = DetailNavItem.Detail.route + "/" + poem.title)
                         })
                 }
             }
@@ -110,7 +118,19 @@ fun HomeCard(poem: Poem, completion: () -> Unit) {
             fontWeight = FontWeight.SemiBold
             )
 
-            Text(text = poem.lines[0])
+            if (poem.lines[0].trim().isEmpty() || poem.lines[0].length < 8) {
+                if (poem.lines[1].trim().isEmpty() || poem.lines[1].length < 8) {
+                    Text(text = poem.lines[2],
+                        maxLines = 3)
+                } else {
+                    Text(text = poem.lines[1],
+                        maxLines = 3)
+                }
+            } else {
+                Text(text = poem.lines[0],
+                    maxLines = 3)
+            }
+
 
             Text(text = "...",
             fontWeight = FontWeight.Bold)

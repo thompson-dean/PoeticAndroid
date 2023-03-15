@@ -7,12 +7,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.example.poetic.model.Poem
 
 @Composable
-fun DetailScreen(randomString: String) {
+fun DetailScreen(title: String) {
     Column(modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(randomString)
+        Text(title)
     }
 }
