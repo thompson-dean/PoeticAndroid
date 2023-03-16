@@ -72,7 +72,8 @@ fun Home(navController: NavController, viewModel: PoemViewModel = viewModel()) {
                             poem = poem,
                             completion = {
                             navController.navigate(
-                                route = DetailNavItem.Detail.route + "/" + poem.title)
+                                route = DetailNavItem.Detail.route + "/" + poem.title
+                            )
                         })
                 }
             }
@@ -90,7 +91,9 @@ fun Home(navController: NavController, viewModel: PoemViewModel = viewModel()) {
                 item {
                     (0..14).forEach { index ->
                         PoemListCard(poem = Datasource().mockPoem, completion = {
-                            navController.navigate(route = DetailNavItem.Detail.route)
+                            navController.navigate(
+                                route = DetailNavItem.Detail.route + "/TEST"
+                            )
                         })
                     }
                 }
