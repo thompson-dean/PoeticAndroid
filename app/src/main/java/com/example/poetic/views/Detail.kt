@@ -10,10 +10,13 @@ import androidx.compose.ui.Modifier
 import com.example.poetic.model.Poem
 
 @Composable
-fun DetailScreen(title: String) {
+fun DetailScreen(poem: Poem) {
     Column(modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(title)
+        Text(poem.title)
+        Text(poem.author)
+        Text(poem.lines[0])
+        Text(poem.linecount)
     }
 }

@@ -71,9 +71,9 @@ fun Home(navController: NavController, viewModel: PoemViewModel = viewModel()) {
                         HomeCard(
                             poem = poem,
                             completion = {
-                            navController.navigate(
-                                route = DetailNavItem.Detail.route + "/" + poem.title
-                            )
+                                navController.navigate(
+                                    route = DetailNavItem.Detail.route + "/" + poem.title + "/" + poem.author + "/" + poem.lines.joinToString("|") + "/" + poem.linecount
+                                )
                         })
                 }
             }

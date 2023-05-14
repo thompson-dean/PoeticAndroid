@@ -32,13 +32,19 @@ fun NavigationController(navController: NavHostController, modifier: Modifier = 
         }
 
         composable(
-            DetailNavItem.Detail.route + "/{title}",
+            DetailNavItem.Detail.route + "/{title}/{author}/{lines}/{linecount}",
             arguments = listOf(
-                navArgument("title") { type = NavType.StringType }
+                navArgument("title") { type = NavType.StringType },
+                navArgument("author") { type = NavType.StringType },
+                navArgument("lines") { type = NavType.StringType },
+                navArgument("linecount") { type = NavType.StringType }
             )
         ) { backStackEntry ->
             val title = backStackEntry.arguments?.getString("title") ?: ""
-            DetailScreen(title)
+            val author = backStackEntry.arguments?.getString("author") ?: ""
+            val lines = backStackEntry.arguments?.getString("lines")?.split("|")?.toTypedArray() ?: arrayOf()
+            val linecount = backStackEntry.arguments?.getString("linecount") ?: ""
+            DetailScreen(Poem(title, author, lines, linecount))
         }
     }
 }
